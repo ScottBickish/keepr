@@ -6,3 +6,41 @@ CREATE TABLE IF NOT EXISTS accounts(
   email varchar(255) COMMENT 'User Email',
   picture varchar(255) COMMENT 'User Picture'
 ) default charset utf8 COMMENT '';
+
+CREATE TABLE IF NOT EXISTS keeps(
+   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  id INT AUTO_INCREMENT NOT NULL PRIMARY key,
+  creatorId VARCHAR(255) NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  img TEXT NOT NULL,
+  views INT NOT NULL,
+  shares INT NOT NULL,
+  keeps INT NOT NULL,
+  FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
+)default charset utf8 COMMENT '';
+
+CREATE TABLE IF NOT EXISTS vaults(
+   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  id INT AUTO_INCREMENT NOT NULL PRIMARY key,
+  creatorId VARCHAR(255) NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  isPrivate boolean DEFAULT false,
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+)default charset utf8 COMMENT '';
+
+CREATE TABLE IF NOT EXISTS vaultkeeps(
+   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  id INT AUTO_INCREMENT NOT NULL PRIMARY key,
+  creatorId VARCHAR(255) NOT NULL,
+  vaultId INT NOT NULL,
+  keepId INT NOT NULL,
+  FOREIGN key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE,
+  FOREIGN key (vaultId) REFERENCES vaults(id),
+  FOREIGN key (keepId) REFERENCES keeps(id)
+
+)default charset utf8 COMMENT '';
