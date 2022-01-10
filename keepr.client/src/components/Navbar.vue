@@ -25,7 +25,6 @@
             :to="{ name: 'About' }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
-            About
           </router-link>
         </li>
       </ul>
@@ -34,7 +33,7 @@
           class="
             btn
             selectable
-            text-success
+            text-dark
             lighten-30
             text-uppercase
             my-2 my-lg-0
