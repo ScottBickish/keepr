@@ -1,12 +1,14 @@
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
+import { profilesService } from "./ProfilesService"
 
 
 class VaultsService{
   async createVault(vault){
     const res = await api.post('api/vaults', vault)
-    AppState.myVaults = [...AppState.myVaults, res.data]
+    AppState.profileVaults = [...AppState.profileVaults, res.data]
+    // await profilesService. getVaultsByProfile(vault.creatorId)
   }
   async getKeepsByVaultId(id){
     const res = await api.get(`api/vaults/${id}/keeps`)

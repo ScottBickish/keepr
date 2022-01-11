@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -61,7 +60,7 @@ namespace keepr.Services
     internal List<Vault> GetMyVaults(string id)
     {
       List<Vault> v = _vrepo.GetUsersVaults(id);
-      return v.ToList();
+      return v;
     }
 
     internal List<Vault> GetUsersVaults(string id, Profile userInfo)
@@ -69,7 +68,7 @@ namespace keepr.Services
       List<Vault> v = _vrepo.GetUsersVaults(id);
       if (userInfo == null)
       {
-        return v.ToList().FindAll(v => v.IsPrivate == false);
+        return v.FindAll(v => v.IsPrivate == false);
 
       }
       return v;

@@ -26,6 +26,11 @@
       ></button>
     </div>
   </div>
+  <!-- <div class="row m-2 container-fluid" v-if="account.id === myVaults.creatorId">
+    <div class="col-md-3" v-for="vault in myVaults" :key="vault.id">
+      <SingleVault :vault="vault" />
+    </div>
+  </div> -->
   <div class="row m-2 container-fluid">
     <div class="col-md-3" v-for="vault in profileVaults" :key="vault.id">
       <SingleVault :vault="vault" />
@@ -92,6 +97,7 @@ export default {
       profileVaults: computed(() => AppState.profileVaults),
       profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
+      myVaults: computed(() => AppState.myVaults),
 
 
     }

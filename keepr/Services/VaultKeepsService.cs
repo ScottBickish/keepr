@@ -18,9 +18,14 @@ namespace keepr.Services
 
     internal VaultKeep Create(VaultKeep newVaultKeep, Profile userInfo)
     {
+      Vault vault = _vrepo.GetVaultById(newVaultKeep.VaultId);
       if (newVaultKeep.CreatorId != userInfo?.Id)
       {
         throw new Exception("er wrong-O");
+      }
+      else if (vault.CreatorId != userInfo?.Id)
+      {
+        throw new Exception("you can only post to your own vaults");
       }
       return _repo.Create(newVaultKeep);
     }

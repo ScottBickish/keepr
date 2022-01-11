@@ -6,16 +6,16 @@
         <h3 class="my-2">Keeps: {{ vaultKeeps.length }}</h3>
       </div>
       <div class="my-2">
-        <router-link
-          :to="{ name: 'Profile', params: { id: vault.creator?.id } }"
+        <!-- <router-link
+          :to="{ name: 'Profile', params: { id: vault.creator?.id } }" -->
+
+        <button
+          @click="removeVault(vault)"
+          v-if="account.id === vault.creatorId"
         >
-          <button
-            @click="removeVault(vault)"
-            v-if="account.id === vault.creatorId"
-          >
-            Delete Vault
-          </button>
-        </router-link>
+          Delete Vault
+        </button>
+        <!-- </router-link> -->
       </div>
     </div>
     <div class="row m-2 container-fluid">
