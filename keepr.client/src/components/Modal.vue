@@ -11,6 +11,7 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            title="close"
           ></button>
         </div>
         <div class="modal-body color">

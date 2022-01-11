@@ -25,6 +25,7 @@
                 id="dropdownMenuButton1"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                title="choose a vault"
               >
                 {{ newVault }}
               </button>
@@ -41,6 +42,7 @@
               <button
                 class="btn bg-white border border-secondary text-secondary px-2"
                 type="submit"
+                title="submit"
               >
                 <i class="mdi mdi-plus-thick"></i>
               </button>
@@ -51,7 +53,8 @@
           <div>
             <span
               v-if="account.id === activeKeep.creatorId"
-              class="mdi mdi-trash-can text-danger ms-5 fs-3"
+              class="mdi mdi-trash-can text-danger ms-5 fs-3 action"
+              title="delete keep"
               @click="removeKeep(activeKeep)"
             ></span>
           </div>

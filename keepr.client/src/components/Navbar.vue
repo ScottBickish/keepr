@@ -3,7 +3,7 @@
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <em>
-          <h1 class="text-dark">KEEPR</h1>
+          <h1 class="text-dark" title="go to home">KEEPR</h1>
         </em>
       </div>
     </router-link>
@@ -40,6 +40,7 @@
           "
           @click="login"
           v-if="!user.isAuthenticated"
+          title="login"
         >
           Login
         </button>
@@ -56,15 +57,21 @@
               alt="user photo"
               height="40"
               class="rounded"
+              title="manage account"
             />
-            <span class="mx-3 text-success lighten-30">{{ user.name }}</span>
+            <span class="mx-3 text-dark" title="manage account">{{
+              user.name
+            }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"
             aria-labelledby="authDropdown"
           >
             <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
+              <div
+                class="list-group-item list-group-item-action hoverable"
+                title="manage account"
+              >
                 Manage Account
               </div>
             </router-link>
@@ -75,6 +82,7 @@
                 text-danger
               "
               @click="logout"
+              title="logout"
             >
               <i class="mdi mdi-logout"></i>
               logout

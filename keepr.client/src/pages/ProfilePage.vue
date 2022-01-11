@@ -1,19 +1,19 @@
 <template>
-  <div class="row container-fluid d-flex">
-    <div class="col-md-4 m-3">
+  <div class="row container-fluid d-flex m-3">
+    <div class="col-md-3">
       <img :src="profile.picture" alt="" class="pic" />
     </div>
-  </div>
-  <div class="col-md-7 m-3">
-    <h1>
-      {{ profile.name }}
-    </h1>
-    <p>
-      <b> Vaults: {{ profileVaults.length }}</b>
-    </p>
-    <p>
-      <b> Keeps: {{ profileKeeps.length }} </b>
-    </p>
+    <div class="col-md-6">
+      <h1>
+        {{ profile.name }}
+      </h1>
+      <p>
+        <b> Vaults: {{ profileVaults.length }}</b>
+      </p>
+      <p>
+        <b> Keeps: {{ profileKeeps.length }} </b>
+      </p>
+    </div>
   </div>
   <div class="row container-fluid">
     <div class="col-12 d-flex m-3">
@@ -23,6 +23,7 @@
         data-bs-target="#vault-form-modal"
         class="mdi mdi-plus ms-3 color rounded"
         v-if="account.id === profile.id"
+        title="create a vault"
       ></button>
     </div>
   </div>

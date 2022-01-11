@@ -15,7 +15,7 @@
         type="checkbox"
         name="isPrivte"
         id="isPrivate"
-        class="my-2"
+        class="my-2 action"
         v-model="vault.isPrivate"
       />
       <textarea
@@ -28,7 +28,7 @@
         required
         v-model="vault.description"
       ></textarea>
-      <button class="btn btn-rounded" type="submit">Upload</button>
+      <button class="rounded" type="submit" title="Upload">Upload</button>
     </form>
   </div>
 </template>

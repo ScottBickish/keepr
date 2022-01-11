@@ -28,7 +28,7 @@
         required
         v-model="keep.description"
       ></textarea>
-      <button class="btn btn-rounded" type="submit">Upload</button>
+      <button class="rounded" type="submit" title="Upload">Upload</button>
     </form>
   </div>
 </template>

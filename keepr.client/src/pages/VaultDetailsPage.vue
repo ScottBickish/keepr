@@ -1,5 +1,5 @@
 <template>
-  <div class="component">
+  <div class="detailsPage m-3">
     <div class="d-flex">
       <div class="ms-5">
         <h1>{{ vault.name }}</h1>
@@ -10,6 +10,8 @@
           :to="{ name: 'Profile', params: { id: vault.creator?.id } }" -->
 
         <button
+          title="delete vault"
+          class="ms-5 rounded"
           @click="removeVault(vault)"
           v-if="account.id === vault.creatorId"
         >
@@ -41,6 +43,9 @@ export default {
     const route = useRoute()
     onMounted(async () => {
       try {
+        // if (AppState.vault.creatorId !== AppState.account.id && AppState.vault.isPrivate) {
+        //   router.push({ name: 'Home' })
+        // }
         if (route.params.id) {
           // if (AppState.account.id !== AppState.vault.creatorId && AppState.vault.isPrivate) {
           // router.push({ name: 'Home' })
