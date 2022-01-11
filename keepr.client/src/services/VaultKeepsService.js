@@ -6,14 +6,12 @@ import { api } from "./AxiosService"
 class VaultKeepsService{
   async createVK(VK){
     const res = await api.post('api/vaultkeeps', VK)
-    logger.log(res.data)
     AppState.vaultKeeps = [...AppState.vaultKeeps, res.data]
   }
-  async removeVault(id){
-    await api.delete(`api/VaultKeeps/${id}`)
-    
+  async removeVK(id){
+    await api.delete(`api/vaultkeeps/${id}`)
+    AppState.vaultKeeps = AppState.vaultKeeps.filter(v => v.id !== id)
   }
-
 }
 
 export const vaultKeepsService = new VaultKeepsService()

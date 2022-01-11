@@ -12,11 +12,13 @@ import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { keepsService } from "../services/KeepsService"
 import { AppState } from "../AppState"
+import { vaultsService } from "../services/VaultsService"
 export default {
-  setup() {
+  setup(account) {
     onMounted(async () => {
       try {
         await keepsService.getAllKeeps()
+        await vaultsService.getMyVaults()
       } catch (error) {
         logger.error(error)
         Pop.toast(error)
@@ -24,8 +26,8 @@ export default {
     })
     return {
       name: 'Home',
-      keeps: computed(() => AppState.keeps)
-
+      keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.myVaults)
     }
   }
 }

@@ -9,7 +9,12 @@
         <router-link
           :to="{ name: 'Profile', params: { id: vault.creator?.id } }"
         >
-          <button @click="removeVault()">Delete Vault</button>
+          <button
+            @click="removeVault(vault)"
+            v-if="account.id === vault.creatorId"
+          >
+            Delete Vault
+          </button>
         </router-link>
       </div>
     </div>
@@ -37,6 +42,10 @@ export default {
     onMounted(async () => {
       try {
         if (route.params.id) {
+          // if (AppState.account.id !== AppState.vault.creatorId && AppState.vault.isPrivate) {
+          // router.push({ name: 'Home' })
+          // Pop.toast("that was private you cannot see that")
+          // }
           await vaultsService.getById(route.params.id)
           await vaultsService.getKeepsByVaultId(route.params.id)
 
@@ -47,10 +56,12 @@ export default {
       }
     })
     return {
-      async removeVault() {
+      async removeVault(vault) {
         try {
-          // router.push({ name: 'Profile', params: { id: vault.creatorId } })
-          await vaultKeepsService.removeVault(route.params.id)
+          if (await Pop.confirm("You Sure you want to delete")) {
+            await vaultsService.removeVault(vault.id)
+            router.push({ name: 'Profile', params: { id: vault.creatorId } })
+          }
         } catch (error) {
           logger.error(error)
           Pop.toast(error)
@@ -58,6 +69,9 @@ export default {
       },
       vaultKeeps: computed(() => AppState.vaultKeeps),
       vault: computed(() => AppState.vault),
+      account: computed(() => AppState.account),
+      router,
+      route,
     }
   }
 }

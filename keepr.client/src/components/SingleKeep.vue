@@ -21,7 +21,7 @@
   </div>
   <Modal id="keep-modal">
     <template #modal-title>Keep Info</template>
-    <template #modal-body> <ActiveKeepModal /> </template>
+    <template #modal-body> <ActiveKeepModal :keep="keep" /> </template>
   </Modal>
 </template>
 
@@ -33,6 +33,7 @@ import { useRouter } from "vue-router"
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { keepsService } from "../services/KeepsService"
+import { vaultKeepsService } from "../services/VaultKeepsService"
 export default {
   props: {
     keep: Object

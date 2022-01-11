@@ -47,8 +47,9 @@
       <span
         v-if="account.id === activeKeep.creatorId"
         class="mdi mdi-trash-can text-danger ms-5 fs-3"
-        @click="removeKeep(activeKeep.id)"
+        @click="removeKeep(activeKeep)"
       ></span>
+
       <img
         :src="activeKeep.creator?.picture"
         alt=""
@@ -69,17 +70,25 @@ import { keepsService } from "../services/KeepsService"
 import { vaultKeepsService } from "../services/VaultKeepsService"
 import { Modal } from "bootstrap"
 export default {
-  setup() {
+  props: {
+    keep: Object
+  },
+  setup(props) {
     const newVault = ref("choose a vault!")
     return {
       activeKeep: computed(() => AppState.activeKeep),
-      async removeKeep(id) {
+      async removeKeep(activeKeep) {
         try {
-          if (await Pop.confirm("Are you sure you want to delete this?")) {
-
-            Modal.getOrCreateInstance(document.getElementById("keep-modal")).hide();
-            await keepsService.removeKeep(id)
-          }
+          if (window.location.href.indexOf("Vault") > -1) {
+            if (await Pop.confirm("Are you sure you want to delete this?")) {
+              Modal.getOrCreateInstance(document.getElementById("keep-modal")).hide();
+              await vaultKeepsService.removeVK(props.keep.vaultKeepId)
+            }
+          } else
+            if (await Pop.confirm("Are you sure you want to delete this?")) {
+              Modal.getOrCreateInstance(document.getElementById("keep-modal")).hide();
+              await keepsService.removeKeep(activeKeep.id)
+            }
         } catch (error) {
           logger.error(error)
           Pop.toast(error)
@@ -88,7 +97,7 @@ export default {
       async createVK() {
         try {
           const vault = newVault.value
-          const found = AppState.profileVaults.find(v => v.name === vault)
+          const found = AppState.myVaults.find(v => v.name === vault)
           let object = { vaultId: found.id, keepId: AppState.activeKeep.id }
 
           await vaultKeepsService.createVK(object)
@@ -100,7 +109,7 @@ export default {
       },
       newVault,
       account: computed(() => AppState.account),
-      vaults: computed(() => AppState.profileVaults)
+      vaults: computed(() => AppState.myVaults)
     }
   }
 }
