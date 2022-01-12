@@ -22,7 +22,7 @@
     </div>
     <div class="row m-2 container-fluid">
       <div class="col-md-3" v-for="keep in vaultKeeps" :key="keep.id">
-        <SingleKeep :keep="keep" />
+        <SingleVKeep :keep="keep" />
       </div>
     </div>
   </div>
@@ -41,6 +41,7 @@ export default {
   setup() {
     const router = useRouter()
     const route = useRoute()
+
     onMounted(async () => {
       try {
         // if (AppState.vault.creatorId !== AppState.account.id && AppState.vault.isPrivate) {
@@ -56,8 +57,9 @@ export default {
 
         }
       } catch (error) {
+        router.push({ name: 'Home' })
         logger.error(error)
-        Pop.toast(error)
+        Pop.toast("that aint yours to see")
       }
     })
     return {

@@ -1,6 +1,10 @@
 <template>
   <!-- <router-link :to="{ name: 'Vault', params: { id: vault.id } }"> -->
-  <div class="rounded bg-secondary border action p-2" @click="pushHome()">
+  <div
+    class="rounded bg-secondary border action p-2"
+    title="open vault"
+    @click="pushHome()"
+  >
     <h3>{{ vault.name }}</h3>
     <h5>{{ vault.description }}</h5>
   </div>
@@ -21,8 +25,8 @@ export default {
     return {
       account: computed(() => AppState.account),
       pushHome() {
+        // debugger
         if (AppState.account.id !== props.vault.creatorId && props.vault.isPrivate) {
-
           router.push({ name: 'Home' })
 
         }

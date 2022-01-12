@@ -38,11 +38,11 @@ namespace keepr.Controllers
 
     }
     [HttpGet]
-    public async Task<ActionResult<Keep>> GetAllKeeps()
+    public ActionResult<Keep> GetAllKeeps()
     {
       try
       {
-        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+
         return Ok(_ks.GetAllKeeps());
       }
       catch (Exception e)
@@ -52,11 +52,10 @@ namespace keepr.Controllers
       }
     }
     [HttpGet("{id}")]
-    public async Task<ActionResult<Keep>> GetKeepById(int id)
+    public ActionResult<Keep> GetKeepById(int id)
     {
       try
       {
-        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
 
         return Ok(_ks.GetKeepById(id));
       }

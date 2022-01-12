@@ -53,20 +53,20 @@ namespace keepr.Services
       updatedVault.CreatorId = updatedVault.CreatorId != null ? updatedVault.CreatorId : oldVault.CreatorId;
       updatedVault.Name = updatedVault.Name != null ? updatedVault.Name : oldVault.Name;
       updatedVault.Description = updatedVault.Description != null ? updatedVault.Description : oldVault.Description;
-      updatedVault.IsPrivate = updatedVault.IsPrivate != null ? updatedVault.IsPrivate : oldVault.IsPrivate;
+      updatedVault.IsPrivate = updatedVault.IsPrivate ? updatedVault.IsPrivate : oldVault.IsPrivate;
       return _vrepo.Edit(updatedVault);
     }
 
-    internal List<Vault> GetMyVaults(string id)
+    internal List<Vault> GetMyVaults(string userId)
     {
-      List<Vault> v = _vrepo.GetUsersVaults(id);
+      List<Vault> v = _vrepo.GetUsersVaults(userId);
       return v;
     }
 
-    internal List<Vault> GetUsersVaults(string id, Profile userInfo)
+    internal List<Vault> GetUsersVaults(string id, string userId)
     {
       List<Vault> v = _vrepo.GetUsersVaults(id);
-      if (userInfo == null)
+      if (userId != id)
       {
         return v.FindAll(v => v.IsPrivate == false);
 

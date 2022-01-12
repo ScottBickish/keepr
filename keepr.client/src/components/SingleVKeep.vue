@@ -1,11 +1,8 @@
 <template>
   <div
-    class="component card mt-1 elevation 10 keeps img-fluid"
-    :style="{
-      'background-image': `url(${keep.img})`,
-    }"
+    class="keeps component card mt-1 img-fluid elevation 10"
+    :style="{ 'background-image': `url(${keep.img})` }"
   >
-    <img class="" :src="keep.img" style="visibility: hidden" />
     <!-- <img
       data-bs-toggle="modal"
       data-bs-target="#keep-modal"
@@ -21,7 +18,7 @@
       <div class="card-body">
         <p
           class="card-text text-light action"
-          @click="setActive(keep.id)"
+          @click="setActive(keep)"
           data-bs-toggle="modal"
           data-bs-target="#keep-modal"
           title="open keep modal"
@@ -64,10 +61,11 @@ export default {
   setup(props) {
 
     return {
+      activeKeep: computed(() => AppState.activeKeep),
       props,
-      async setActive(id) {
+      async setActive(keep) {
         try {
-          await keepsService.getKeepById(id)
+          AppState.activeKeep = keep
         } catch (error) {
           logger.log(error)
           Pop.toast(error)
@@ -88,12 +86,9 @@ export default {
   border-radius: 50%;
 }
 .keeps {
-  // background-image: url(keep.img);
   background-size: cover;
   object-fit: cover;
-  // height: 200px;
-  // width: 200px;
-  //   max-width: 100%;
-  //   height: auto;
+  height: 200px;
+  width: 200px;
 }
 </style>

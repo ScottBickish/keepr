@@ -50,6 +50,7 @@ export default {
           await keepsService.createKeep(keep.value)
           Pop.toast("You have created a keep!", 'success')
           Modal.getOrCreateInstance(document.getElementById("keep-form-modal")).hide();
+          keep.value = {}
         } catch (error) {
           logger.error(error)
           Pop.toast(error)

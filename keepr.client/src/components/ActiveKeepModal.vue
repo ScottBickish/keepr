@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex">
     <div class="keeps component card mt-1">
-      <img :src="activeKeep.img" class="rounded-top img-fluid mpic" alt="..." />
+      <img :src="activeKeep.img" class="rounded-top img-fluid" alt="..." />
     </div>
     <div class="text-center ms-5">
       <span class="">
@@ -29,7 +29,10 @@
               >
                 {{ newVault }}
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <ul
+                class="dropdown-menu overflow"
+                aria-labelledby="dropdownMenuButton1"
+              >
                 <li v-for="vault in vaults" :key="vault.id">
                   <div
                     class="dropdown-item selectable"
@@ -54,6 +57,14 @@
             <span
               v-if="account.id === activeKeep.creatorId"
               class="mdi mdi-trash-can text-danger ms-5 fs-3 action"
+              title="delete keep"
+              @click="removeKeep(activeKeep)"
+            ></span>
+            <!-- NOTE LINE 58 NEEDS ACTIVE KEEP IN PARAMS FOR THE KEEPS TO DELETE IN THE RIGHT WAY.  -->
+          </div>
+          <div v-if="activeKeep.vaultKeepId">
+            <span
+              class="mdi mdi-close text-danger ms-5 fs-3 action"
               title="delete keep"
               @click="removeKeep(activeKeep)"
             ></span>
@@ -95,18 +106,20 @@ export default {
     keep: Object
   },
   setup(props) {
+
     const newVault = ref("choose a vault!")
     return {
       activeKeep: computed(() => AppState.activeKeep),
       async removeKeep(activeKeep) {
         try {
           if (window.location.href.indexOf("Vault") > -1) {
-            if (await Pop.confirm("Are you sure you want to delete this?")) {
+            if (await Pop.confirm("Are you sure you want to delete this from your vault?")) {
               Modal.getOrCreateInstance(document.getElementById("keep-modal")).hide();
-              await vaultKeepsService.removeVK(props.keep.vaultKeepId)
+              // debugger
+              await vaultKeepsService.removeVK(activeKeep.vaultKeepId)
             }
           } else
-            if (await Pop.confirm("Are you sure you want to delete this?")) {
+            if (await Pop.confirm("Are you sure you want to delete this forever?")) {
               Modal.getOrCreateInstance(document.getElementById("keep-modal")).hide();
               await keepsService.removeKeep(activeKeep.id)
             }
@@ -123,6 +136,7 @@ export default {
 
           await vaultKeepsService.createVK(object)
           Modal.getOrCreateInstance(document.getElementById("keep-modal")).hide();
+          Pop.toast('You created a new Vault Keep!', 'success')
         } catch (error) {
           logger.error(error)
           Pop.toast(error)
@@ -130,7 +144,8 @@ export default {
       },
       newVault,
       account: computed(() => AppState.account),
-      vaults: computed(() => AppState.myVaults)
+      vaults: computed(() => AppState.myVaults),
+
     }
   }
 }
@@ -148,5 +163,9 @@ export default {
   height: 490px;
   width: 400px;
   object-fit: cover;
+}
+.overflow {
+  max-height: 20vh;
+  overflow-y: auto;
 }
 </style>

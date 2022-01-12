@@ -10,9 +10,9 @@ class VaultKeepsService{
     AppState.vaultKeeps = [...AppState.vaultKeeps, res.data]
   }
   async removeVK(id){
-    await api.delete(`api/vaultkeeps/${id}`)
-    AppState.vaultKeeps = AppState.vaultKeeps.filter(v => v.id !== id)
-    // await vaultsService.getKeepsByVaultId()
+    // debugger
+    await api.delete(`api/VaultKeeps/${id}`)
+    AppState.vaultKeeps = AppState.vaultKeeps.filter(v => v.vaultKeepId !== id)
   }
 }
 

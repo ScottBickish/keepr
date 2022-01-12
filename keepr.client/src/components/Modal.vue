@@ -33,10 +33,6 @@ export default {
 
 
 <style lang="scss" scoped>
-.modal {
-  height: 750px;
-  width: 900px;
-}
 .color {
   background-color: lightblue;
 }
